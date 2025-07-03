@@ -1,2 +1,2 @@
 # ansible-config-mgt
-This File is used for project Ansible configuration management
+This File is Used for the Ansible configuration management
