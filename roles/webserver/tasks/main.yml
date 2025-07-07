@@ -1,36 +1,43 @@
----
 - name: install apache
-  become: true
-  ansible.builtin.yum:
-    name: "httpd"
+  yum:
+    name: httpd
     state: present
+  become: true
 
 - name: install git
-  become: true
-  ansible.builtin.yum:
-    name: "git"
+  yum:
+    name: git
     state: present
+  become: true
 
 - name: clone a repo
-  become: true
-  ansible.builtin.git:
+  git:
     repo: https://github.com/srinath013/tooling.git
     dest: /var/www/html
     force: yes
+  become: true
+
+- name: Ensure /var/www/ exists
+  file:
+    path: /var/www/
+    state: directory
+    mode: '0755'
+  become: true
 
 - name: copy html content to one level up
-  become: true
   command: cp -r /var/www/html/html/ /var/www/
-
-- name: Start service httpd, if not started
   become: true
-  ansible.builtin.service:
+
+- name: Ensure httpd service is started and enabled
+  service:
     name: httpd
     state: started
+    enabled: true
+  become: true
 
 - name: recursively remove /var/www/html/html/ directory
-  become: true
-  ansible.builtin.file:
+  file:
     path: /var/www/html/html
     state: absent
+  become: true
 
