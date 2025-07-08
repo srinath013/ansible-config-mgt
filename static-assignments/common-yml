@@ -1,0 +1,10 @@
+---
+- name: Common configuration for all servers
+  hosts: all
+  become: yes
+  tasks:
+    - name: Ensure curl is installed
+      apt:
+        name: curl
+        state: present
+        update_cache: yes
