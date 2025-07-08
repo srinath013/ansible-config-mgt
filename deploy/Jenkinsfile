@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  parameters {
+    string(name: 'inventory', defaultValue: 'dev.yml', description: 'Inventory file for the environment to deploy configuration')
+  }
 
   environment {
       ANSIBLE_CONFIG="${WORKSPACE}/deploy/ansible.cfg"
